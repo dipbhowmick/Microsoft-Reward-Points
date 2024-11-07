@@ -53,7 +53,7 @@ jobs:
     - name: Commit changes
       run: |
         git add cache.txt
-        git commit -m "Update cache.txt"
+        git commit -m "Update cache.txt" || echo "No changes to commit"
         git push origin master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
