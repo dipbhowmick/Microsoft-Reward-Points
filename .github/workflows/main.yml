@@ -2,7 +2,7 @@ name: Collect Microsoft Reward Points
 
 on:
   schedule:
-    - cron: '47 19 * * *'
+    - cron: '17 20 * * *'
 
 jobs:
   collect-microsoft-reward-points:
@@ -24,12 +24,12 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: ${{ runner.os }}-pip-
           
-    - name: Cache User Data
-      uses: actions/cache@v3
-      with:
-        path: user_data
-        key: ${{ runner.os }}-user-${{ hashFiles('**/cache.txt') }}
-        restore-keys: ${{ runner.os }}-user-
+    # - name: Cache User Data
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: user_data
+    #     key: ${{ runner.os }}-user-${{ hashFiles('**/cache.txt') }}
+    #     restore-keys: ${{ runner.os }}-user-
 
     - name: Install dependencies
       run: |
