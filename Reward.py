@@ -13,22 +13,26 @@ def getUrl(driver, url, sleep=2, retry=3):
     for _ in range(retry):
         try:
             driver.get(url)
+            print(f"[GET SUCCESS {url}]")
+            print(f"[Title]: {driver.title.lower()}")
             time.sleep(sleep)
             break
         except Exception as e:
             print(f"[GET ERROR {url}] {e}")
 
 _driver_path = EdgeChromiumDriverManager().install()
+print(f"EdgeChromiumDriverManager installed Successfully at {_driver_path}")
+
 _options = Options()
 _options.add_argument("--headless")
 _options.add_argument("--disable-gpu")
 _options.add_argument("--no-sandbox")
 _options.add_argument(f"user-data-dir={os.path.join(os.path.dirname(os.path.abspath(__file__)), 'user_data')}")
+
 driver = webdriver.Edge(_options, Service(_driver_path))
 driver.set_page_load_timeout(10)
 
 getUrl(driver, 'https://rewards.bing.com/')
-print(driver.title.lower())
 
 if "sign in" in driver.title.lower():
     email_field = driver.find_element(By.NAME, "loginfmt")
@@ -45,7 +49,9 @@ if "sign in" in driver.title.lower():
         time.sleep(3)
 
     with open('cache.txt', 'w') as file:
-        file.write(str(time.time()))
+        t = str(time.time())
+        print(f"[cache.txt]: {t}")
+        file.write(t)
 
 _total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
 _today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
