@@ -13,6 +13,7 @@ def getUrl(driver, url, sleep=2, retry=3):
     for _ in range(retry):
         try:
             driver.get(url)
+            time.sleep(sleep)
             break
         except Exception as e:
             print(f"[GET ERROR {url}] {e}")
