@@ -38,11 +38,14 @@ if "sign in" in driver.title.lower():
     password_field = driver.find_element(By.NAME, "passwd")
     password_field.send_keys('School@123')
     password_field.send_keys(Keys.RETURN)
-    time.sleep(20)
+    time.sleep(10)
+    
+    if "stay signed in" in driver.title.lower():
+        driver.find_element(By.XPATH, "//button[@type='submit']").click()
+        time.sleep(3)
 
-if "stay signed in" in driver.title.lower():
-    driver.find_element(By.XPATH, "//button[@type='submit']").click()
-    time.sleep(3)
+    with open('cache.txt', 'w') as file:
+        file.write(str(time.time()))
 
 _total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
 _today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
