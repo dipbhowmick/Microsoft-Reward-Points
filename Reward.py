@@ -97,7 +97,7 @@ print(F"[{user}] Total: {total} Today: {today}")
 
 body = f"[{user}]\nTotal: {total-_total} [{_total}->{total}]\nToday: {today-_today} [{_today}->{today}]"
 qbody = urllib.parse.quote(body)
-getUrl(driver, f"https://script.google.com/macros/s/AKfycbxQJ8fPbmXHu2qKO8gCE_5ezf-0CH0s7jXDGbRarJVsuTNlNzMoIVfr_wiXy73DC-Ob/exec?email=bhowmickdip8@gmail.com&sub=Collect-Microsoft-Reward-Points&body={qbody}")
+getUrl(driver, f"https://script.google.com/macros/s/AKfycbxQJ8fPbmXHu2qKO8gCE_5ezf-0CH0s7jXDGbRarJVsuTNlNzMoIVfr_wiXy73DC-Ob/exec?email=bhowmickdip8@gmail.com&sub=Microsoft-Reward-Points&body={qbody}")
 print(driver.find_element(By.TAG_NAME, 'body').text)
 print(body)
 
