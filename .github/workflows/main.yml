@@ -2,7 +2,7 @@ name: Collect Microsoft Reward Points
 
 on:
   schedule:
-    - cron: '30 21 * * *'
+    - cron: '30 20 * * *'
 
 jobs:
   collect-microsoft-reward-points:
