@@ -9,7 +9,7 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 pc_search = 60
 mobile_search = 40
 
-def getUrl(driver, url, sleep=2, retry=3):
+def getUrl(driver, url, sleep=3, retry=3):
     for _ in range(retry):
         try:
             driver.get(url)
@@ -38,7 +38,7 @@ if "sign in" in driver.title.lower():
     email_field = driver.find_element(By.NAME, "loginfmt")
     email_field.send_keys('bhowmickdip8@gmail.com')
     email_field.send_keys(Keys.RETURN)
-    time.sleep(2)
+    time.sleep(3)
     password_field = driver.find_element(By.NAME, "passwd")
     password_field.send_keys('School@123')
     password_field.send_keys(Keys.RETURN)
@@ -61,7 +61,7 @@ print(F"[{_user}] Total: {_total} Today: {_today}")
 _tab1 = driver.current_window_handle
 for a in driver.find_elements(By.XPATH, "//div[@id='more-activities']//a[contains(@class, 'ds-card')]"):
     a.click()
-time.sleep(2)
+time.sleep(3)
 
 # for tab in driver.window_handles:
 #     if tab != _tab1:
