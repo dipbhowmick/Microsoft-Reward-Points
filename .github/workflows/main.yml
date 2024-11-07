@@ -20,16 +20,22 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: microsoft-reward-points-files-cache-pip
-        restore-keys: microsoft-reward-points-files-cache-pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: ${{ runner.os }}-pip-
         
-    - name: Cache files
+    - name: Set up apt cache
+      uses: actions/cache@v3
+      with:
+        path: /var/cache/apt/archives
+        key: ${{ runner.os }}-apt-${{ hashFiles('**/apt-get-install*.txt') }}
+        restore-keys: ${{ runner.os }}-apt-
+          
+    - name: Cache User Data
       uses: actions/cache@v3
       with:
         path: user_data
-        key: microsoft-reward-points-files-cache-${{ steps.cache-id.outputs.timestamp }}
-        restore-keys: |
-          microsoft-reward-points-files-cache-
+        key: ${{ runner.os }}-user-${{ hashFiles('**/cache.txt') }}
+        restore-keys: ${{ runner.os }}-user-
 
     - name: Install dependencies
       run: |
@@ -37,6 +43,4 @@ jobs:
         sudo apt-get install -y microsoft-edge-stable
         
     - name: Run Reward.py
-      run: |
-        set -o pipefail
-        python -u Reward.py
+      run: python -u Reward.py
