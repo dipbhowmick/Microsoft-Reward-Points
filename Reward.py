@@ -19,6 +19,22 @@ driver = webdriver.Edge(_options, Service(_driver_path))
 driver.get('https://rewards.bing.com/')
 time.sleep(2)
 
+print(driver.title)
+
+if "sign in" in driver.title.lower():
+    email_field = driver.find_element(By.NAME, "loginfmt")
+    email_field.send_keys('bhowmickdip8@gmail.com')
+    email_field.send_keys(Keys.RETURN)
+    time.sleep(2)
+    password_field = driver.find_element(By.NAME, "passwd")
+    password_field.send_keys('School@123')
+    password_field.send_keys(Keys.RETURN)
+    time.sleep(5)
+
+if "stay signed in" in driver.title.lower():
+    driver.find_element(By.XPATH, "//button[@type='submit']").click()
+    time.sleep(3)
+
 _total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
 _today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
 
