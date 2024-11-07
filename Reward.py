@@ -6,8 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
-pc_search = 2
-mobile_search = 2
+pc_search = 40
+mobile_search = 30
 
 def getUrl(driver, url, sleep=2, retry=3):
     for _ in range(retry):
@@ -42,7 +42,7 @@ if "sign in" in driver.title.lower():
     password_field = driver.find_element(By.NAME, "passwd")
     password_field.send_keys('School@123')
     password_field.send_keys(Keys.RETURN)
-    time.sleep(10)
+    time.sleep(5)
     
     if "stay signed in" in driver.title.lower():
         driver.find_element(By.XPATH, "//button[@type='submit']").click()
@@ -53,8 +53,10 @@ if "sign in" in driver.title.lower():
         print(f"[cache.txt]: {t}")
         file.write(t)
 
+_user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
 _total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
 _today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
+print(F"[{_user}] Total: {_total} Today: {_today}")
 
 _tab1 = driver.current_window_handle
 for a in driver.find_elements(By.XPATH, "//div[@id='more-activities']//a[contains(@class, 'ds-card')]"):
@@ -91,6 +93,7 @@ getUrl(driver, 'https://rewards.bing.com/')
 user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
 total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
 today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
+print(F"[{user}] Total: {total} Today: {today}")
 
 driver.quit()
 
