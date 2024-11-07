@@ -6,8 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
-pc_search = 40
-mobile_search = 30
+pc_search = 60
+mobile_search = 40
 
 def getUrl(driver, url, sleep=2, retry=3):
     for _ in range(retry):
