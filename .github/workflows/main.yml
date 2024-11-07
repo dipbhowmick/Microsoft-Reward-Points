@@ -5,7 +5,7 @@ on:
     - cron: '47 18 * * *'
 
 jobs:
-  selenium-edge:
+  collect-microsoft-reward-points:
     runs-on: ubuntu-latest
 
     steps:
