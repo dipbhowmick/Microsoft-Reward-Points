@@ -37,4 +37,6 @@ jobs:
         sudo apt-get install -y microsoft-edge-stable
         
     - name: Run Reward.py
-      run: python Reward.py
+      run: |
+        set -o pipefail
+        python -u Reward.py
