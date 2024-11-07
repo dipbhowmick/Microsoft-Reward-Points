@@ -1,7 +1,8 @@
 name: Collect Microsoft Reward Points
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '47 18 * * *'
 
 jobs:
   selenium-edge:
@@ -22,13 +23,6 @@ jobs:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: ${{ runner.os }}-pip-
-        
-    - name: Set up apt cache
-      uses: actions/cache@v3
-      with:
-        path: /var/cache/apt/archives/*.deb
-        key: ${{ runner.os }}-apt-${{ hashFiles('**/apt-get-install*.txt') }}
-        restore-keys: ${{ runner.os }}-apt-
           
     - name: Cache User Data
       uses: actions/cache@v3
