@@ -27,7 +27,7 @@ _options = Options()
 _options.add_argument("--headless")
 _options.add_argument("--disable-gpu")
 _options.add_argument("--no-sandbox")
-# _options.add_argument(f"user-data-dir={os.path.join(os.path.dirname(os.path.abspath(__file__)), 'user_data')}")
+_options.add_argument(f"user-data-dir={os.path.join(os.path.dirname(os.path.abspath(__file__)), 'user_data')}")
 
 driver = webdriver.Edge(_options, Service(_driver_path))
 driver.set_page_load_timeout(10)
@@ -48,10 +48,10 @@ if "sign in" in driver.title.lower():
         driver.find_element(By.XPATH, "//button[@type='submit']").click()
         time.sleep(3)
 
-    # with open('cache.txt', 'w') as file:
-    #     t = str(time.time())
-    #     print(f"[cache.txt]: {t}")
-    #     file.write(t)
+    with open('cache.txt', 'w') as file:
+        t = str(time.time())
+        print(f"[cache.txt]: {t}")
+        file.write(t)
 
 _user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
 _total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
