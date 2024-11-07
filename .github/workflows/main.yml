@@ -16,12 +16,20 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Cache files
+    - name: Cache pip
       uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: microsoft-reward-points-files-cache
-        restore-keys: microsoft-reward-points-files-cache
+        key: microsoft-reward-points-files-cache-pip
+        restore-keys: microsoft-reward-points-files-cache-pip
+        
+    - name: Cache files
+      uses: actions/cache@v3
+      with:
+        path: user_data
+        key: microsoft-reward-points-files-cache-${{ steps.cache-id.outputs.timestamp }}
+        restore-keys: |
+          microsoft-reward-points-files-cache-
 
     - name: Install dependencies
       run: |
