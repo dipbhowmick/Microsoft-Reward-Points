@@ -65,7 +65,7 @@ time.sleep(2)
 #     if tab != _tab1:
 #         driver.switch_to.window(tab)
 #         driver.close()
-# driver.switch_to.window(_tab1)
+driver.switch_to.window(_tab1)
 
 for _ in range(pc_search):
     getUrl(driver, f"https://www.bing.com/search?q={''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(3, 10)))}&form=QBLH&sp=-1&ghc=1&lq=0&pq=hel&sc=10-3&qs=n&sk=&cvid=CA3534C5DE96458BB6A7C71DDAD1EC80&ghsh=0&ghacc=0&ghpl=")
