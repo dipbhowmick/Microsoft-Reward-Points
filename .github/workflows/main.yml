@@ -52,8 +52,14 @@ jobs:
 
     - name: Commit changes
       run: |
-        git add cache.txt
-        git commit -m "Update cache.txt" || echo "No changes to commit"
-        git push origin master
+        if git diff --quiet HEAD -- cache.txt
+        then
+          echo "Skip cache.txt update, as it is still valid."
+        else
+          git add cache.txt
+          git commit -m "Update cache.txt"
+          git push origin master
+        fi
+        
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
