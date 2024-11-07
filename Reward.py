@@ -5,8 +5,8 @@ from selenium.webdriver.edge.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
-pc_search = 40
-mobile_search = 30
+pc_search = 2
+mobile_search = 2
 
 _driver_path = EdgeChromiumDriverManager().install()
 _options = Options()
@@ -61,5 +61,7 @@ time.sleep(2)
 user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
 total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
 today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
+
+driver.quit()
 
 print(F"[{user}]\nTotal: {total-_total} [{_total}->{total}]\nToday: {today-_today} [{_today}->{today}]")
