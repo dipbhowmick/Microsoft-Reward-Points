@@ -30,7 +30,7 @@ if "sign in" in driver.title.lower():
     password_field = driver.find_element(By.NAME, "passwd")
     password_field.send_keys('School@123')
     password_field.send_keys(Keys.RETURN)
-    time.sleep(5)
+    time.sleep(20)
 
 if "stay signed in" in driver.title.lower():
     driver.find_element(By.XPATH, "//button[@type='submit']").click()
