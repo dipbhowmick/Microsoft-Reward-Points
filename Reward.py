@@ -27,7 +27,7 @@ driver = webdriver.Edge(_options, Service(_driver_path))
 driver.set_page_load_timeout(10)
 
 getUrl(driver, 'https://rewards.bing.com/')
-print(driver.title)
+print(driver.title.lower())
 
 if "sign in" in driver.title.lower():
     email_field = driver.find_element(By.NAME, "loginfmt")
