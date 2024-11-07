@@ -48,7 +48,7 @@ jobs:
       run: |
         if git diff --quiet HEAD -- cache.txt
         then
-          echo "Skip cache.txt update, as it is still valid."
+          echo "Skip cache.txt update"
         else
           git add cache.txt
           git commit -m "Update cache.txt"
