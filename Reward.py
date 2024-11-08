@@ -8,7 +8,7 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 username = sys.argv[1]
 password = sys.argv[2]
-pc_search = 40
+pc_search = 2
 mobile_search = 2
 with open('words.txt', 'r') as f:
     words = f.read().split()
