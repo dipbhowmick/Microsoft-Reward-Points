@@ -1,4 +1,4 @@
-import os, random, string, time, urllib.parse
+import sys, os, random, string, time, urllib.parse
 from selenium import webdriver
 from selenium.webdriver.edge.options import Options
 from selenium.webdriver.edge.service import Service
@@ -6,6 +6,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
+username = sys.argv[1]
+password = sys.argv[2]
 pc_search = 60
 mobile_search = 40
 
@@ -27,7 +29,6 @@ _options = Options()
 _options.add_argument("--headless")
 _options.add_argument("--disable-gpu")
 _options.add_argument("--no-sandbox")
-_options.add_argument(f"user-data-dir={os.path.join(os.path.dirname(os.path.abspath(__file__)), 'user_data')}")
 
 driver = webdriver.Edge(_options, Service(_driver_path))
 driver.set_page_load_timeout(10)
@@ -36,22 +37,17 @@ getUrl(driver, 'https://rewards.bing.com/')
 
 if "sign in" in driver.title.lower():
     email_field = driver.find_element(By.NAME, "loginfmt")
-    email_field.send_keys('bhowmickdip8@gmail.com')
+    email_field.send_keys(username)
     email_field.send_keys(Keys.RETURN)
     time.sleep(3)
     password_field = driver.find_element(By.NAME, "passwd")
-    password_field.send_keys('School@123')
+    password_field.send_keys(password)
     password_field.send_keys(Keys.RETURN)
     time.sleep(5)
     
     if "stay signed in" in driver.title.lower():
         driver.find_element(By.XPATH, "//button[@type='submit']").click()
         time.sleep(3)
-
-    with open('cache.txt', 'w') as file:
-        t = str(time.time())
-        print(f"[cache.txt]: {t}")
-        file.write(t)
 
 _user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
 _total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
