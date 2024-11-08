@@ -8,7 +8,7 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 username = sys.argv[1]
 password = sys.argv[2]
-pc_search = 2
+pc_search = 10
 mobile_search = 2
 with open('words.txt', 'r') as f:
     words = f.read().split()
@@ -71,8 +71,18 @@ for _href in _a_href:
 #         driver.close()
 driver.switch_to.window(_tab1)
 
+getUrl(driver, 'https://rewards.bing.com/')
+_total1 = int(driver.find_element(By.ID, 'balanceToolTipDiv').get_attribute('textContent').split()[-1])
+_today1 = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('textContent').split()[-1])
+print(F"[{_user}] Total: {_total1} Today: {_today1}")
+
 for _ in range(pc_search):
     getUrl(driver, f"https://www.bing.com/search?q={random.choice(words)}&form=QBLH&sp=-1&ghc=1&lq=0&pq=hel&sc=10-3&qs=n&sk=&cvid=CA3534C5DE96458BB6A7C71DDAD1EC80&ghsh=0&ghacc=0&ghpl=")
+
+getUrl(driver, 'https://rewards.bing.com/')
+_total2 = int(driver.find_element(By.ID, 'balanceToolTipDiv').get_attribute('textContent').split()[-1])
+_today2 = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('textContent').split()[-1])
+print(F"[{_user}] Total: {_total2} Today: {_today2}")
 
 dev_tools = driver.execute_cdp_cmd
 dev_tools('Emulation.setDeviceMetricsOverride', {
@@ -98,7 +108,7 @@ today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('te
 print(F"[{user}] Total: {total} Today: {today}")
 
 getUrl(driver, 'https://rewards.bing.com/pointsbreakdown')
-_status = driver.find_element(By.XPATH, "//div[@id='earningreport-level-heading']/p").get_attribute('textContent').strip()
+_status = driver.find_element(By.XPATH, "//p[@ng-bind-html='$ctrl.pointProgressText']").get_attribute('textContent').strip()
 
 body = f"[{user}]\nTotal: {total-_total} [{_total}->{total}]\nToday: {today-_today} [{_today}->{today}\nStatus: {_status}]"
 qbody = urllib.parse.quote(body)
