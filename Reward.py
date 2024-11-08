@@ -100,7 +100,7 @@ today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('te
 print(F"[{user}] Total: {total} Today: {today}")
 
 getUrl(driver, 'https://rewards.bing.com/pointsbreakdown')
-_status = driver.find_elements(By.XPATH, "//div[@id='earningreport-level-heading']/p").get_attribute('textContent').strip()
+_status = driver.find_element(By.XPATH, "//div[@id='earningreport-level-heading']/p").get_attribute('textContent').strip()
 
 body = f"[{user}]\nTotal: {total-_total} [{_total}->{total}]\nToday: {today-_today} [{_today}->{today}\nStatus: {_status}]"
 qbody = urllib.parse.quote(body)
