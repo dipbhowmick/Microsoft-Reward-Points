@@ -17,7 +17,6 @@ def getUrl(driver, url, sleep=3, retry=3):
     for _ in range(retry):
         try:
             driver.get(url)
-            print(f"[GET SUCCESS {url}]")
             print(f"[Title]: {driver.title.lower()}")
             time.sleep(sleep)
             break
@@ -56,14 +55,13 @@ if "sign in" in driver.title.lower():
         print(f"[Title]: {driver.title.lower()}")
         
 getUrl(driver, 'https://rewards.bing.com/')
-
 _user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
 _total = int(driver.find_element(By.ID, 'balanceToolTipDiv').get_attribute('textContent').split()[-1])
 _today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('textContent').split()[-1])
 print(F"[{_user}] Total: {_total} Today: {_today}")
 
 _tab1 = driver.current_window_handle
-_a_href = [a.get_attribute('href') for a in driver.find_elements(By.XPATH, "//div[@id='more-activities']//a[contains(@class, 'ds-card')]") if a.get_attribute('href')]
+_a_href = [a.get_attribute('href') for a in driver.find_elements(By.XPATH, "//p[@ng-bind-html='$ctrl.pointProgressText']") if a.get_attribute('href')]
 for _href in _a_href:
     getUrl(driver, _href)
 
