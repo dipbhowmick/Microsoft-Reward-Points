@@ -8,8 +8,8 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 username = sys.argv[1]
 password = sys.argv[2]
-pc_search = 60
-mobile_search = 40
+pc_search = 40
+mobile_search = 2
 
 def getUrl(driver, url, sleep=3, retry=3):
     for _ in range(retry):
@@ -40,18 +40,24 @@ if "sign in" in driver.title.lower():
     email_field.send_keys(username)
     email_field.send_keys(Keys.RETURN)
     time.sleep(3)
+    print(f"[Title]: {driver.title.lower()}")
+    
     password_field = driver.find_element(By.NAME, "passwd")
     password_field.send_keys(password)
     password_field.send_keys(Keys.RETURN)
     time.sleep(5)
+    print(f"[Title]: {driver.title.lower()}")
     
     if "stay signed in" in driver.title.lower():
         driver.find_element(By.XPATH, "//button[@type='submit']").click()
-        time.sleep(3)
+        time.sleep(5)
+        print(f"[Title]: {driver.title.lower()}")
+        
+getUrl(driver, 'https://rewards.bing.com/')
 
 _user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
-_total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
-_today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
+_total = int(driver.find_element(By.ID, 'balanceToolTipDiv').get_attribute('textContent').split()[-1])
+_today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('textContent').split()[-1])
 print(F"[{_user}] Total: {_total} Today: {_today}")
 
 _tab1 = driver.current_window_handle
@@ -87,8 +93,8 @@ for _ in range(mobile_search):
 getUrl(driver, 'https://rewards.bing.com/')
 
 user = driver.find_element(By.ID, 'mectrl_currentAccount_primary').get_attribute('textContent').strip()
-total = int(driver.find_element(By.ID, 'balanceToolTipDiv').text.split()[-1])
-today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').text.split()[-1])
+total = int(driver.find_element(By.ID, 'balanceToolTipDiv').get_attribute('textContent').split()[-1])
+today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('textContent').split()[-1])
 print(F"[{user}] Total: {total} Today: {today}")
 
 body = f"[{user}]\nTotal: {total-_total} [{_total}->{total}]\nToday: {today-_today} [{_today}->{today}]"
