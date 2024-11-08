@@ -61,9 +61,9 @@ _today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('t
 print(F"[{_user}] Total: {_total} Today: {_today}")
 
 _tab1 = driver.current_window_handle
-for a in driver.find_elements(By.XPATH, "//div[@id='more-activities']//a[contains(@class, 'ds-card')]"):
-    a.click()
-time.sleep(3)
+_a_href = [a.get_attribute('href') for a in driver.find_elements(By.XPATH, "//div[@id='more-activities']//a[contains(@class, 'ds-card')]") if a.get_attribute('href')]
+for _href in _a_href:
+    getUrl(driver, _href)
 
 # for tab in driver.window_handles:
 #     if tab != _tab1:
