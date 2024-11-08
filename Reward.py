@@ -61,9 +61,16 @@ _today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('t
 print(F"[{_user}] Total: {_total} Today: {_today}")
 
 _tab1 = driver.current_window_handle
-_a_href = [a.get_attribute('href') for a in driver.find_elements(By.XPATH, "//p[@ng-bind-html='$ctrl.pointProgressText']") if a.get_attribute('href')]
-for _href in _a_href:
-    getUrl(driver, _href)
+_a = driver.find_elements(By.XPATH, "//mee-rewards-more-activities-card-item/div/a")
+_n = len(_a)
+for i in range(_n):
+    _a[i].click()
+    time.sleep(3)
+    if driver.current_window_handle != _tab1:
+        driver.switch_to.window(_tab1)
+    else:
+        getUrl(driver, 'https://rewards.bing.com/')
+        _a = driver.find_elements(By.XPATH, "//mee-rewards-more-activities-card-item/div/a")
 
 # for tab in driver.window_handles:
 #     if tab != _tab1:
@@ -108,6 +115,7 @@ today = int(driver.find_element(By.ID, 'dailypointToolTipDiv').get_attribute('te
 print(F"[{user}] Total: {total} Today: {today}")
 
 getUrl(driver, 'https://rewards.bing.com/pointsbreakdown')
+print('\n'.join([x.strip() for x in driver.find_element(By.XPATH, "//mee-rewards-earning-report-points-breakdown").get_attribute('textContent').split('\n')]))
 _status = driver.find_element(By.XPATH, "//p[@ng-bind-html='$ctrl.pointProgressText']").get_attribute('textContent').strip()
 
 body = f"[{user}]\nTotal: {total-_total} [{_total}->{total}]\nToday: {today-_today} [{_today}->{today}\nStatus: {_status}]"
